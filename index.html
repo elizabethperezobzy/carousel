@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карусель изображений</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .carousel {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+        }
+
+        button {
+            font-size: 24px;
+            margin-top: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Карусель изображений</h1>
+
+    <div class="carousel">
+        <div class="slides">
+            <div class="slide"><img src="image1.jpg" alt="Image 1"></div>
+            <div class="slide"><img src="image2.jpg" alt="Image 2"></div>
+            <div class="slide"><img src="image3.jpg" alt="Image 3"></div>
+            <!-- Добавь другие изображения по аналогии -->
+        </div>
+    </div>
+
+    <button onclick="prevSlide()">← Предыдущее</button>
+    <button onclick="nextSlide()">Следующее →</button>
+
+    <script>
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelector('.slides');
+            const totalSlides = document.querySelectorAll('.slide').length;
+
+            if (index >= totalSlides) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = totalSlides - 1;
+            } else {
+                currentIndex = index;
+            }
+
+            const translateValue = -currentIndex * 100 + '%';
+            slides.style.transform = 'translateX(' + translateValue + ')';
+        }
+
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+
+        // Автоматическая смена слайдов каждые 3 секунды
+        setInterval(nextSlide, 3000);
+    </script>
+</body>
+</html>
